@@ -281,14 +281,14 @@ function App() {
       <header className="flex flex-col items-center lg:flex-row lg:justify-between lg:mb-4">
         {/* w-64 so text will break after ChatGPT */}
         <h1 className="font-title text-3xl text-center w-64 lg:w-auto">
-          ChatGPT With Voice
+          CREst
           <div className="inline-block w-4 h-7 ml-2 align-middle bg-dark/40 animate-blink" />
         </h1>
-        <div className="mt-4 flex justify-center lg:px-2">
-          <a href="https://github.com/thanhsonng/chatgpt-voice" target="_blank">
-            <GitHub strokeWidth={1} />
-          </a>
-        </div>
+        {/*<div className="mt-4 flex justify-center lg:px-2">*/}
+        {/*  <a href="https://github.com/thanhsonng/chatgpt-voice" target="_blank">*/}
+        {/*    <GitHub strokeWidth={1} />*/}
+        {/*  </a>*/}
+        {/*</div>*/}
       </header>
 
       <main className="flex-1 flex flex-col gap-y-4 overflow-y-auto lg:mr-80 lg:gap-y-8">
