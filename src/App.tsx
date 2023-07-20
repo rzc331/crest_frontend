@@ -167,6 +167,16 @@ function App() {
     });
   };
 
+  const audioRef = useRef<InstanceType<typeof Audio> | null>(null);
+
+  useEffect(() => {
+    if (listening && audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;  // Optional: reset audio to start if you want to replay it from the beginning next time
+      audioRef.current = null;
+    }
+  }, [listening]);
+
   useEffect(() => {
     setState((oldState) => {
       if (listening) {
@@ -235,11 +245,14 @@ function App() {
       .then((res) => res.json())
       .then((res: CreateChatGPTMessageResponse) => {
         conversationRef.current.currentMessageId = res.messageId;
+        // textToSpeech(res.answer);
+        textToSpeech(res.answer).then(audio => {
+          audioRef.current = audio;
+        });
         setMessages((oldMessages) => [
           ...oldMessages,
           { type: 'response', text: res.answer },
         ]);
-        textToSpeech(res.answer);
       })
       .catch((err: unknown) => {
         console.warn(err);
@@ -262,12 +275,12 @@ function App() {
           ...oldMessages,
           { type: 'response', text: response },
         ]);
-        speak(response);
+        textToSpeech(response);
       })
       .finally(() => {
         setState(State.IDLE);
       });
-  }, [state, finalTranscript, settings, speak]);
+  }, [state, finalTranscript, settings, textToSpeech]);
 
   if (!browserSupportsSpeechRecognition) {
     return (
@@ -282,7 +295,7 @@ function App() {
       <header className="flex flex-col items-center lg:flex-row lg:justify-between lg:mb-4">
         {/* w-64 so text will break after ChatGPT */}
         <h1 className="font-title text-3xl text-center w-64 lg:w-auto">
-          CREst
+          CRESt
           <div className="inline-block w-4 h-7 ml-2 align-middle bg-dark/40 animate-blink" />
         </h1>
         {/*<div className="mt-4 flex justify-center lg:px-2">*/}
@@ -321,7 +334,7 @@ function App() {
               type={type}
               text={text}
               isActive={getIsActive()}
-              onClick={speak}
+              onClick={textToSpeech}
             />
           );
         })}

@@ -8,6 +8,7 @@ module.exports = {
       fontFamily: {
         mono: ['DM Mono', 'monospace'],
         title: ['Major Mono Display', 'monospace'],
+        test: ['Nova Square', 'sans-serif'],
       },
       colors: {
         light: '#FFFCE8',
