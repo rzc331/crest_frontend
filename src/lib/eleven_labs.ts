@@ -73,6 +73,7 @@ function replaceAbbreviationWithFullName(text: string) {
         'Zn': 'Zinc',
         'Fe': 'Iron',
         'Co': 'Cobalt',
+        '*': '',
     };
 
     // Replace each element abbreviation with its full name
